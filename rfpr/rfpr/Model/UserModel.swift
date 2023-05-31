@@ -11,6 +11,13 @@ enum Role: String {
     case admin       = "Администратор"
 }
     
+enum Action {
+    case create
+    case read
+    case update
+    case delete
+}
+
 struct User {
     var id: String?
     var role: Role

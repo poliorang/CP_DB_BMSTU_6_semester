@@ -13,4 +13,6 @@ enum DatabaseError: Error {
     case getError
     case deleteAllError
     case triggerError
+    
+    case rightsError
 }

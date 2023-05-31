@@ -142,3 +142,48 @@ class AuthorizationRepository: IAuthorizationRepository {
         return authorizations.isEmpty ? nil : authorizations
     }
 }
+
+extension AuthorizationRepository {
+    func getRight(_ user: User?, _ action: Action) -> Bool {
+        guard let user = user else { return false }
+
+        switch user.role {
+            
+        case .participant:
+            switch action {
+            case .create:
+                return false
+            case .read:
+                return false
+            case .update:
+                return false
+            case .delete:
+                return false
+            }
+
+        case .referee:
+            switch action {
+            case .create:
+                return false
+            case .read:
+                return true
+            case .update:
+                return false
+            case .delete:
+                return false
+            }
+        
+        case .admin:
+            switch action {
+            case .create:
+                return true
+            case .read:
+                return true
+            case .update:
+                return true
+            case .delete:
+                return true
+            }
+        }
+    }
+}
