@@ -49,7 +49,7 @@ class UserService: IUserService {
             throw ParameterError.funcParameterError
         }
         
-        // проверка, что юзер с таким логоином уже есть
+        // проверка, что юзер с таким логином уже есть
         if let login = newUser.authorization?.login {
             let userWithGettedLogin = try getUserByLogin(login)
             

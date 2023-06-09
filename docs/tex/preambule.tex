@@ -8,9 +8,8 @@
 \usepackage[english,russian]{babel}
 \usepackage{fontspec}
 \setmainfont{Times New Roman}
-
 % ГОСТовские настройки для полей и абзацев
-\usepackage[left=30mm,right=10mm,top=20mm,bottom=20mm]{geometry}
+\usepackage[left=30mm,right=10mm,top=19mm,bottom=20mm]{geometry}
 \usepackage{misccorr}
 \usepackage{indentfirst}
 \usepackage{enumitem}
@@ -32,7 +31,6 @@
 % Переопределение стандартных \section, \subsection, \subsubsection по ГОСТу;
 % Переопределение их отступов до и после для 1.5 интервала во всем документе
 \usepackage{titlesec}
-
 \titleformat{\section}[block]
 {\bfseries\normalsize\filcenter}{\thesection}{1em}{}
 
@@ -77,23 +75,28 @@
 \hypersetup{citecolor=black}
 
 \usepackage{listings}
-\usepackage{xcolor}
-
-% Для листинга кода:
-\lstset{%
-	language=python,   					% выбор языка для подсветки	
-	basicstyle=\small\sffamily,			% размер и начертание шрифта для подсветки кода
-	numbers=left,						% где поставить нумерацию строк (слева\справа)
-	%numberstyle=,					% размер шрифта для номеров строк
-	stepnumber=1,						% размер шага между двумя номерами строк
-	numbersep=5pt,						% как далеко отстоят номера строк от подсвечиваемого кода
-	frame=single,						% рисовать рамку вокруг кода
-	tabsize=4,							% размер табуляции по умолчанию равен 4 пробелам
-	captionpos=t,						% позиция заголовка вверху [t] или внизу [b]
-	breaklines=true,					
-	breakatwhitespace=true,				% переносить строки только если есть пробел
-	escapeinside={\#*}{*)},				% если нужно добавить комментарии в коде
-	backgroundcolor=\color{white},
+\lstset{
+	basicstyle=\footnotesize\ttfamily,
+	language=[Sharp]C, % Или другой ваш язык -- см. документацию пакета
+	commentstyle=\color{comment},
+	numbers=left,
+	numberstyle=\tiny\color{plain},
+	numbersep=5pt,
+	tabsize=4,
+	extendedchars=\true,
+	breaklines=true,
+	keywordstyle=\color{blue},
+	frame=b,
+	stringstyle=\ttfamily\color{string}\ttfamily,
+	showspaces=false,
+	showtabs=false,
+	xleftmargin=17pt,
+	framexleftmargin=17pt,
+	framexrightmargin=5pt,
+	framexbottommargin=4pt,
+	showstringspaces=false,
+	inputencoding=utf8x,
+	keepspaces=true
 }
 
 \DeclareCaptionLabelSeparator{line}{\ --\ }

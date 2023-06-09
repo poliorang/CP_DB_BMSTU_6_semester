@@ -1,4 +1,605 @@
-\section*{ПРИЛОЖЕНИЕ A}
+\section{ПРИЛОЖЕНИЕ A} \label{ПРИЛОЖЕНИЕ A}
 \addcontentsline{toc}{section}{ПРИЛОЖЕНИЕ A}
 
-\pagebreak
+\begin{lstlisting}[label=lst:code1, caption=Создание спроектированной базы данных]
+class LootRealm: Object {
+	@Persisted(primaryKey: true) var _id: ObjectId
+	@Persisted var fish: String
+	@Persisted var weight: Int
+	@Persisted var step: StepRealm?
+	@Persisted var score: Int
+    
+	convenience init(id: String?, fish: String, weight: Int, step: StepRealm?, score: Int) throws {
+		self.init()
+		self._id = ObjectId.generate()
+		if let id = id { self._id = try! ObjectId.init(string: id) }
+		self.fish = fish
+		self.weight = weight
+		self.step = step
+		self.score = score
+	}
+}
+	
+class StepRealm: Object {
+	@Persisted(primaryKey: true) var _id: ObjectId
+	@Persisted var name: String
+	@Persisted var participant: ParticipantRealm?
+	@Persisted var competition: CompetitionRealm?
+	@Persisted var score: Int
+	
+	convenience init(id: String?, name: String, participant: ParticipantRealm?, competition: CompetitionRealm?, score: Int) {
+        		self.init()
+		self._id = ObjectId.generate()
+		if let id = id { self._id = try! ObjectId.init(string: id) }
+		self.name = name
+		self.participant = participant
+		self.competition = competition
+		self.score = score
+	}
+}
+class CompetitionRealm: Object {.
+	@Persisted(primaryKey: true) var _id: ObjectId.
+	@Persisted var name: String.
+	@Persisted var teams: List<TeamRealm>.
+		
+	convenience init(id: String?, name: String, teams: List<TeamRealm>) {.
+		self.init().
+        
+		self._id = ObjectId.generate().
+		if let id = id { self._id = try! ObjectId.init(string: id) }.
+		self.name = name.
+		self.teams = teams.
+	}.
+}.
+
+class TeamRealm: Object {.
+	@Persisted(primaryKey: true) var _id: ObjectId.
+	@Persisted var name: String.
+	@Persisted var competitions: List<CompetitionRealm>.
+	@Persisted var score: Int.
+    
+	convenience init(id: String?, name: String, competitions: List<CompetitionRealm>, score: Int) {.
+		self.init().
+        
+		self._id = ObjectId.generate().
+		if let id = id { self._id = try! ObjectId.init(string: id) }.
+		self.name = name.
+		self.competitions = competitions.
+		self.score = score.
+	}.
+}.
+	
+class ParticipantRealm: Object {.
+	@Persisted(primaryKey: true) var _id: ObjectId.
+	@Persisted var lastName: String.
+	@Persisted var firstName: String.
+	@Persisted var patronymic: String?.
+	@Persisted var team: TeamRealm?.
+	@Persisted var city: String.
+	@Persisted var birthday: Date.
+	@Persisted var score: Int
+    
+	convenience init(id: String?, lastName: String, firstName: String, patronymic: String?, team: TeamRealm?, city: String, birthday: Date, score: Int) {
+		self.init()
+        
+		self._id = ObjectId.generate()
+		if let id = id { self._id = try! ObjectId.init(string: id) }
+		self.lastName = lastName
+		self.firstName = firstName
+		self.team = team
+		self.patronymic = patronymic
+		self.city = city
+		self.birthday = birthday
+		self.score = score
+	}
+}
+	
+class AuthorizationRealm: Object {
+	@Persisted(primaryKey: true) var _id: ObjectId
+	@Persisted var login: String
+	@Persisted var password: String
+    
+	convenience init(id: String?, login: String, password: String) throws {
+		self.init()
+
+		self._id = ObjectId.generate()
+		if let id = id { self._id = try! ObjectId.init(string: id) }
+		self.login = login
+		self.password = password
+	}
+}
+	
+class UserRealm: Object {
+	@Persisted(primaryKey: true) var _id: ObjectId
+	@Persisted var role: String
+	@Persisted var authorization: AuthorizationRealm?
+    
+	convenience init(id: String?, role: String, authorization: AuthorizationRealm?) throws {
+		self.init()
+
+		self._id = ObjectId.generate()
+		if let id = id { self._id = try! ObjectId.init(string: id) }
+		self.role = role
+		self.authorization = authorization
+    	}
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:role1, caption=Выделение прав в соответствии с ролевой моделью]   
+extension AuthorizationRepository {
+	func getRight(_ user: User?, _ action: Action) -> Bool {
+		guard let user = user else { return false }
+
+		switch user.role {
+            
+		case .participant:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return false
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+			
+		case .referee:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return true
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+        
+		case .admin:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:role2, caption=Выделение прав в соответствии с ролевой моделью]   
+extension UserRepository {
+	func getRight(_ user: User?, _ action: Action) -> Bool {
+		guard let user = user else { return false }
+
+		switch user.role {
+            
+		case .participant:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return false
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+			
+		case .referee:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return true
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+        
+		case .admin:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:role3, caption=Выделение прав в соответствии с ролевой моделью]   
+extension LootRepository {
+	func getRight(_ user: User?, _ action: Action) -> Bool {
+		guard let user = user else { return false }
+
+		switch user.role {
+            
+		case .participant:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return true
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+			
+		case .referee:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+        
+		case .admin:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:role4, caption=Выделение прав в соответствии с ролевой моделью]   
+extension CompetitionRepository {
+	func getRight(_ user: User?, _ action: Action) -> Bool {
+		guard let user = user else { return false }
+
+		switch user.role {
+            
+		case .participant:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return true
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+			
+		case .referee:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+        
+		case .admin:
+		
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:role5, caption=Выделение прав в соответствии с ролевой моделью]   
+extension TeamRepository {
+	func getRight(_ user: User?, _ action: Action) -> Bool {
+		guard let user = user else { return false }
+
+		switch user.role {
+            
+		case .participant:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return true
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+			
+		case .referee:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+        
+		case .admin:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:role6, caption=Выделение прав в соответствии с ролевой моделью]   
+extension ParticipantRepository {
+	func getRight(_ user: User?, _ action: Action) -> Bool {
+		guard let user = user else { return false }
+
+		switch user.role {
+            
+		case .participant:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return true
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+			
+		case .referee:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+        
+		case .admin:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:role7, caption=Выделение прав в соответствии с ролевой моделью]   
+extension StepRepository {
+	func getRight(_ user: User?, _ action: Action) -> Bool {
+		guard let user = user else { return false }
+
+		switch user.role {
+            
+		case .participant:
+			switch action {
+			case .create:
+				return false
+			case .read:
+				return true
+			case .update:
+				return false
+			case .delete:
+				return false
+			}
+			
+		case .referee:
+			switch action {
+			case .create:
+				return true
+			case .read:
+				return true
+			case .update:
+				return true
+			case .delete:
+				return true
+			}
+	case .admin:
+		switch action {
+		case .create:
+			return true
+		case .read:
+			return true
+		case .update:
+			return true
+		case .delete:
+			return true
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:code3, caption=Код функции триггера --- scoreTrigger]   
+func scoreTrigger(_ loot: LootRealm?) throws {
+	let stepsRealm = realm.objects(StepRealm.self)
+
+	for step in stepsRealm {
+		do {
+			 try updateStepScore(step)
+		} catch {
+			throw DatabaseError.updateError
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:code4, caption=Код вспомогательной функции updateStepScore]
+func updateStepScore(_ step: StepRealm) throws {
+	let lootsRealm = realm.objects(LootRealm.self)
+	var newScore = 0
+	for loot in lootsRealm {
+		if loot.step == step {
+			newScore += loot.score
+		}
+	}
+	let id = "\(step._id)"
+	let newStep = StepRealm(id: id, name: step.name, participant: step.participant, competition: step.competition, score: newScore)
+	do {
+		try realm.write {
+			realm.add(newStep, update: .modified)
+		}
+	} catch {.
+		throw DatabaseError.updateError.
+	}.
+	
+	let participant = participantRepository.getParticipantByStep(newStep).
+	try? updateParticipantScore(participant).
+}.
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:code5, caption=Код вспомогательной функции updateParticipantScore]
+func updateParticipantScore(_ participant: ParticipantRealm) throws {.
+	let stepsRealm = realm.objects(StepRealm.self).
+        
+	var newScore = 0.
+	for step in stepsRealm {.
+		if step.participant == participant {.
+			newScore += step.score.
+		}.
+	}.
+        
+	let id = "\(participant._id)".
+	let newParticipant = ParticipantRealm(id: id, lastName: participant.lastName, firstName: participant.firstName, patronymic: participant.patronymic, team: participant.team, city: participant.city, birthday: participant.birthday, score: newScore).
+        
+	do {.
+		try realm.write {.
+			realm.add(newParticipant, update: .modified).
+		}.
+	} catch {.
+		throw DatabaseError.updateError.
+	}.
+	
+	let team = teamRepository.getTeamByParticipant(newParticipant).
+	try? updateTeamScore(team).
+}.
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:code6, caption=Код вспомогательной функции updateTeamScore]
+func updateTeamScore(_ team: TeamRealm) throws {.
+	let participantsRealm = realm.objects(ParticipantRealm.self).
+        
+	var newScore = 0.
+	for participant in participantsRealm {.
+		if participant.team == team {.
+			newScore += participant.score.
+		}.
+	}.
+        
+	let id = "\(team._id)".
+	let newTeam = TeamRealm(id: id, name: team.name, competitions: team.competitions, score: newScore).
+        
+	do {.
+		try realm.write {.
+			realm.add(newTeam, update: .modified).
+		}.
+	} catch {.
+		throw DatabaseError.updateError.
+	}.
+}.
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:code7, caption=Код функции createLoot].
+func createLoot(loot: Loot) throws -> Loot? {.
+	let realmLoot: LootRealm.
+	do {.
+		realmLoot = try loot.convertLootToRealm(realm).
+	} catch {.
+		throw DatabaseError.addError.
+	}.
+        	do {.
+		try realm.write {.
+			realm.add(realmLoot).
+		}.
+	} catch {.
+		throw DatabaseError.addError.
+	}.
+       
+	let createdLoot = try getLoot(id: "\(realmLoot._id)").
+	do {.
+		let loot = try createdLoot?.convertLootToRealm(realm).
+		try triggerLootToStep(loot).
+	} catch {.
+		throw DatabaseError.triggerError.
+	}.
+	return createdLoot.
+}.
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:code8, caption=Код функции getParticipantByCompetition].
+func getParticipantByCompetition(participant: Participant, competition: Competition, stepName: StepsName?) throws -> Participant? {.
+	guard let participant = try getParticipant(id: participant.id!) else {.
+		throw ParameterError.funcParameterError.
+	}.
+        
+	let participantRealm = try participant.convertParticipantToRealm(realm).
+	let competitionRealm = try competition.convertCompetitionToRealm(realm).
+	let stepsRealm = realm.objects(StepRealm.self).
+        
+	var newScore = 0.
+	for step in stepsRealm {.
+		if step.participant == participantRealm {.
+			if let stepName = stepName {.
+				if step.name == stepName.rawValue && step.competition == competitionRealm { newScore += step.score }.
+			} else {.
+				newScore += step.score.
+			}.
+		}.
+	}.
+	do {.
+		try realm.write {.
+			participantRealm.score = newScore.
+			realm.add(participantRealm, update: .modified).
+		}.
+	} catch {.
+		throw DatabaseError.updateError.
+	}.
+	let resultParticipant = participantRealm.convertParticipantFromRealm().
+        
+	return resultParticipant.
+}.
+\end{lstlisting}
