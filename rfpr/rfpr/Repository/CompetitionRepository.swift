@@ -24,6 +24,8 @@ class CompetitionRepository: ICompetitionRepository, IStepToCompetitionRepositor
         }
     }
     
+    let authorizationManager = AuthorizationManager.shared
+    
     func realmDeleteAll() throws {
         do {
             try realm.write {
@@ -35,6 +37,10 @@ class CompetitionRepository: ICompetitionRepository, IStepToCompetitionRepositor
     }
     
     func getCompetition(id: String) throws -> Competition? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let id = try ObjectId.init(string: id)
     
         let findedCompetition = realm.objects(CompetitionRealm.self).where {
@@ -49,6 +55,10 @@ class CompetitionRepository: ICompetitionRepository, IStepToCompetitionRepositor
     }
     
     func createCompetition(competition: Competition) throws -> Competition? {
+        if !getRight(authorizationManager.getUser(), Action.create) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmCompetition: CompetitionRealm
         
         do {
@@ -71,6 +81,10 @@ class CompetitionRepository: ICompetitionRepository, IStepToCompetitionRepositor
     }
     
     func deleteCompetition(competition: Competition) throws {
+        if !getRight(authorizationManager.getUser(), Action.delete) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmCompetition = try competition.convertCompetitionToRealm(realm)
         
         let competitionsFromDB = realm.objects(CompetitionRealm.self)
@@ -97,6 +111,11 @@ class CompetitionRepository: ICompetitionRepository, IStepToCompetitionRepositor
     }
     
     func getCompetitions() throws -> [Competition]? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
+        
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         let competitionsRealm = realm.objects(CompetitionRealm.self)
         var competitions = [Competition]()

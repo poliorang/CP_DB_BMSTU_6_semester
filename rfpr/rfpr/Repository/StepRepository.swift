@@ -24,6 +24,8 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
         }
     }
     
+    let authorizationManager = AuthorizationManager.shared
+    
     func realmDeleteAll() throws {
         do {
             try realm.write {
@@ -35,6 +37,9 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func getStep(id: String) throws -> Step? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
         let id = try ObjectId.init(string: id)
     
         let findedStep = realm.objects(StepRealm.self).where {
@@ -49,6 +54,10 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func createStep(step: Step) throws -> Step? {
+        if !getRight(authorizationManager.getUser(), Action.create) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmStep: StepRealm
         
         do {
@@ -71,6 +80,10 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func deleteStep(step: Step) throws {
+        if !getRight(authorizationManager.getUser(), Action.delete) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmStep = try step.convertStepToRealm(realm)
         
         let stepFromDB = realm.objects(StepRealm.self).where {
@@ -91,6 +104,10 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func addLoot(loot: Loot, step: Step) throws {
+        if !getRight(authorizationManager.getUser(), Action.create) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmStep = try step.convertStepToRealm(realm)
         let realmLoot = try loot.convertLootToRealm(realm)
         
@@ -121,6 +138,10 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func deleteLoot(loot: Loot, step: Step) throws {
+        if !getRight(authorizationManager.getUser(), Action.delete) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmLoot = try loot.convertLootToRealm(realm)
         
         let lootFromDB = realm.objects(LootRealm.self).where {
@@ -142,6 +163,10 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func getStepByParticipant(participant: Participant) throws -> [Step]? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let steps = try! getSteps()
         
         var resultSteps = [Step]()
@@ -157,6 +182,10 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func getStepByCompetition(competition: Competition) throws -> [Step]? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let steps = try! getSteps()
         
         var resultSteps = [Step]()
@@ -172,6 +201,10 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func addParticipant(participant: Participant, step: Step) throws {
+        if !getRight(authorizationManager.getUser(), Action.create) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmStep = try step.convertStepToRealm(realm)
         let realmParticipant = try participant.convertParticipantToRealm(realm)
         
@@ -214,6 +247,10 @@ class StepRepository: IStepRepository, ILootToStepRepository, IStepByParticipant
     }
     
     func getSteps() throws -> [Step]? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let stepsRealm = realm.objects(StepRealm.self)
         var steps = [Step]()
         

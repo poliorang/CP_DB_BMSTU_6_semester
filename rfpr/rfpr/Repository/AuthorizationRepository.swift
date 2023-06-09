@@ -23,6 +23,8 @@ class AuthorizationRepository: IAuthorizationRepository {
         }
     }
     
+    let authorizationManager = AuthorizationManager.shared
+    
     func realmDeleteAll() throws {
         do {
             try realm.write {
@@ -34,6 +36,10 @@ class AuthorizationRepository: IAuthorizationRepository {
     }
     
     func getAuthorization(id: String) throws -> Authorization? {
+//        if !getRight(authorizationManager.getUser(), Action.read) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let id = try ObjectId.init(string: id)
     
         let findedAuthorization = realm.objects(AuthorizationRealm.self).where {
@@ -48,6 +54,11 @@ class AuthorizationRepository: IAuthorizationRepository {
     }
     
     func createAuthorization(authorization: Authorization) throws -> Authorization? {
+//        if !getRight(authorizationManager.getUser(), Action.create) {
+//            throw DatabaseError.rightsError
+//        }
+        
+        
         let realmAuthorization: AuthorizationRealm
         
         do {
@@ -70,6 +81,10 @@ class AuthorizationRepository: IAuthorizationRepository {
     }
     
     func updateAuthorization(previousAuthorization: Authorization, newAuthorization: Authorization) throws -> Authorization? {
+//        if !getRight(authorizationManager.getUser(), Action.update) {
+//            throw DatabaseError.rightsError
+//        }
+        
         var newAuthorization = newAuthorization
         newAuthorization.id = nil
         
@@ -99,6 +114,10 @@ class AuthorizationRepository: IAuthorizationRepository {
     }
     
     func deleteAuthorization(authorization: Authorization) throws {
+//        if !getRight(authorizationManager.getUser(), Action.delete) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let realmAuthorization = try authorization.convertAuthorizationToRealm(realm)
         
         let authorizationFromDB = realm.objects(AuthorizationRealm.self).where {
@@ -119,6 +138,10 @@ class AuthorizationRepository: IAuthorizationRepository {
     }
     
     func getAuthorizationByLoginPassword(authorization findAuthorization: Authorization) throws -> Authorization? {
+//        if !getRight(authorizationManager.getUser(), Action.read) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let authorizations = try getAuthorizations()
         
         for authorization in authorizations ?? [] {
@@ -132,6 +155,10 @@ class AuthorizationRepository: IAuthorizationRepository {
     }
     
     func getAuthorizations() throws -> [Authorization]? {
+//        if !getRight(authorizationManager.getUser(), Action.read) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let realmAuthorization = realm.objects(AuthorizationRealm.self)
         var authorizations = [Authorization]()
         

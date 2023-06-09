@@ -25,6 +25,8 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
         }
     }
     
+    let authorizationManager = AuthorizationManager.shared
+    
     func realmDeleteAll() throws {
         do {
             try realm.write {
@@ -36,6 +38,10 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
     }
     
     func getTeam(id: String) throws -> Team? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let id = try ObjectId.init(string: id)
     
         let findedTeam = realm.objects(TeamRealm.self).where {
@@ -51,6 +57,10 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
     
     
     func createTeam(team: Team) throws -> Team? {
+        if !getRight(authorizationManager.getUser(), Action.create) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmTeam: TeamRealm
         
         do {
@@ -73,6 +83,9 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
     }
     
     func updateTeam(previousTeam: Team, newTeam: Team) throws -> Team? {
+        if !getRight(authorizationManager.getUser(), Action.update) {
+            throw DatabaseError.rightsError
+        }
         
         var newTeam = newTeam
         newTeam.id = nil
@@ -103,6 +116,10 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
     }
     
     func deleteTeam(team: Team) throws {
+        if !getRight(authorizationManager.getUser(), Action.delete) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmTeam = try team.convertTeamToRealm(realm)
         
         let teamsFromDB = realm.objects(TeamRealm.self)
@@ -129,6 +146,10 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
     }
     
     func getTeams() throws -> [Team]? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let teamsRealm = realm.objects(TeamRealm.self)
         var teams = [Team]()
         
@@ -140,6 +161,10 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
     }
 
     func addCompetition(team: Team, competition: Competition) throws {
+        if !getRight(authorizationManager.getUser(), Action.create) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmTeam = try team.convertTeamToRealm(realm)
         let realmCompetition = try competition.convertCompetitionToRealm(realm)
         
@@ -188,6 +213,10 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
     }
     
     func addParticipant(participant: Participant, team: Team) throws {
+        if !getRight(authorizationManager.getUser(), Action.create) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmTeam = try team.convertTeamToRealm(realm)
         let realmParticipant = try participant.convertParticipantToRealm(realm)
         
@@ -232,6 +261,10 @@ class TeamRepository: ITeamRepository, ICompetitionToTeamRepository,
     }
 
     func getTeamScoreByCompetition(team: Team, competition: Competition, stepName: StepsName?) throws -> Team? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         guard let team = try getTeam(id: team.id!) else {
             throw ParameterError.funcParameterError
         }

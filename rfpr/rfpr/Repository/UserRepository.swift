@@ -24,6 +24,8 @@ class UserRepository: IUserRepository {
         }
     }
     
+    let authorizationManager = AuthorizationManager.shared
+    
     func realmDeleteAll() throws {
         do {
             try realm.write {
@@ -35,6 +37,10 @@ class UserRepository: IUserRepository {
     }
     
     func createUser(user: User) throws -> User? {
+//        if !getRight(authorizationManager.getUser(), Action.create) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let realmUser: UserRealm
         
         // может быть только 1 участник без авторизации, чтобы не плодить
@@ -67,6 +73,10 @@ class UserRepository: IUserRepository {
     }
     
     func getUser(id: String) throws -> User? {
+//        if !getRight(authorizationManager.getUser(), Action.read) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let id = try ObjectId.init(string: id)
     
         let findedUser = realm.objects(UserRealm.self).where {
@@ -81,6 +91,10 @@ class UserRepository: IUserRepository {
     }
     
     func updateUser(previousUser: User, newUser: User) throws -> User? {
+//        if !getRight(authorizationManager.getUser(), Action.update) {
+//            throw DatabaseError.rightsError
+//        }
+        
         var newUser = newUser
         newUser.id = nil
         
@@ -110,6 +124,10 @@ class UserRepository: IUserRepository {
     }
     
     func deleteUser(user: User) throws {
+//        if !getRight(authorizationManager.getUser(), Action.delete) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let realmUser = try user.convertUserToRealm(realm)
         
         let userFromDB = realm.objects(UserRealm.self).where {
@@ -130,6 +148,10 @@ class UserRepository: IUserRepository {
     }
     
     func getUsers() throws -> [User]? {
+//        if !getRight(authorizationManager.getUser(), Action.read) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let realmUser = realm.objects(UserRealm.self)
         var users = [User]()
         
@@ -141,6 +163,10 @@ class UserRepository: IUserRepository {
     }
     
     func getUserByAuthorization(authorization: Authorization) throws -> User? {
+//        if !getRight(authorizationManager.getUser(), Action.read) {
+//            throw DatabaseError.rightsError
+//        }
+        
         let users = try getUsers()
         
         for user in users ?? [] {

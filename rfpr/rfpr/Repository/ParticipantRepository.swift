@@ -23,6 +23,8 @@ class ParticipantRepository: IParticipantRepository, IParticipantByTeamRepositor
         }
     }
     
+    let authorizationManager = AuthorizationManager.shared
+    
     func realmDeleteAll() throws {
         do {
             try realm.write {
@@ -34,6 +36,10 @@ class ParticipantRepository: IParticipantRepository, IParticipantByTeamRepositor
     }
     
     func getParticipant(id: String) throws -> Participant? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let id = try ObjectId.init(string: id)
     
         let findedParticipant = realm.objects(ParticipantRealm.self).where {
@@ -48,6 +54,10 @@ class ParticipantRepository: IParticipantRepository, IParticipantByTeamRepositor
     }
     
     func createParticipant(participant: Participant) throws -> Participant? {
+        if !getRight(authorizationManager.getUser(), Action.create) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmParticipant: ParticipantRealm
         
         do {
@@ -70,6 +80,10 @@ class ParticipantRepository: IParticipantRepository, IParticipantByTeamRepositor
     }
     
     func updateParticipant(previousParticipant: Participant, newParticipant: Participant) throws -> Participant? {
+        if !getRight(authorizationManager.getUser(), Action.update) {
+            throw DatabaseError.rightsError
+        }
+        
         var newParticipant = newParticipant
         newParticipant.id = nil
         
@@ -99,6 +113,10 @@ class ParticipantRepository: IParticipantRepository, IParticipantByTeamRepositor
     }
     
     func deleteParticipant(participant: Participant) throws {
+        if !getRight(authorizationManager.getUser(), Action.delete) {
+            throw DatabaseError.rightsError
+        }
+        
         let realmParticipant = try participant.convertParticipantToRealm(realm)
         
         let participantFromDB = realm.objects(ParticipantRealm.self).where {
@@ -119,6 +137,10 @@ class ParticipantRepository: IParticipantRepository, IParticipantByTeamRepositor
     }
     
     func getParticipants() throws -> [Participant]? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let participantsRealm = realm.objects(ParticipantRealm.self)
         var participants = [Participant]()
         
@@ -130,6 +152,10 @@ class ParticipantRepository: IParticipantRepository, IParticipantByTeamRepositor
     }
     
     func getParticipantByTeam(team: Team) throws -> [Participant]? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         let participants = try! getParticipants()
         
         var resultParticipant = [Participant]()
@@ -146,6 +172,10 @@ class ParticipantRepository: IParticipantRepository, IParticipantByTeamRepositor
     }
     
     func getParticipantScoreByCompetition(participant: Participant, competition: Competition, stepName: StepsName?) throws -> Participant? {
+        if !getRight(authorizationManager.getUser(), Action.read) {
+            throw DatabaseError.rightsError
+        }
+        
         guard let participant = try getParticipant(id: participant.id!) else {
             throw ParameterError.funcParameterError
         }
