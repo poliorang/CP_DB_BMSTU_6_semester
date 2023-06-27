@@ -8,38 +8,28 @@
 import UIKit
 
 class AuthorizationViewController: UIViewController {
+    
     var services: ServicesManager! = nil
-    let alertManager = AlertManager.shared
+    private let alertManager = AlertManager.shared
+    private let authorizationManager = AuthorizationManager.shared
     
-    let authorizationManager = AuthorizationManager.shared
-    
-    let loginTextField = UITextField(frame: CGRect(x: 70, y: 300, width: 300, height: 40))
-    let passwordTextField = UITextField(frame: CGRect(x: 70, y: 370, width: 300, height: 40))
-    
-    let loginWithAuthoButton = UIButton()
-    let registrationButton = UIButton()
-    let loginWithoutAuthoButton = UIButton()
-    let logoutButton = UIButton()
+    private var authorizationViews: AuthorizationViews! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
         
         setupServices()
+        authorizationViews = AuthorizationViews(view: self.view)
         
-        setupParametersTextFields(loginTextField, passwordTextField)
-        
-        setupLoginWithAuthoButton(loginWithAuthoButton)
-        setupRegistrationButton(registrationButton)
-        setupLoginWithoutAuthoButton(loginWithoutAuthoButton)
+        setupTargets()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupTextInFields(loginTextField, passwordTextField)
+        setupTextInTextFields(authorizationViews.loginTextField, authorizationViews.passwordTextField)
     }
     
-    func setupServices() {
+    private func setupServices() {
         do {
             try services = ServicesManager()
         } catch {
@@ -47,29 +37,24 @@ class AuthorizationViewController: UIViewController {
                                    message: "Не удалось получить доступ к базе данных")
         }
     }
-
-    private func setupParametersTextFields(_ login: UITextField, _ password: UITextField) {
-        [login, password].forEach {
-            view.addSubview($0)
-            $0.delegate = self
-            $0.font = UIFont.systemFont(ofSize: 15)
-            $0.borderStyle = UITextField.BorderStyle.roundedRect
-            $0.clearButtonMode = UITextField.ViewMode.whileEditing
-        }
-        login.placeholder = "Логин"
-        password.placeholder = "Пароль"
-        
-        if let loginText = authorizationManager.getUser()?.authorization?.login,
-           let passwordText = authorizationManager.getUser()?.authorization?.password {
-            login.text = loginText
-            
-            var starsText = ""
-            for _ in 0..<passwordText.count { starsText += "*" }
-            password.text = starsText
-        }
-    }
     
-    private func setupTextInFields(_ login: UITextField, _ password: UITextField) {
+    private func setupDelegates() {
+        authorizationViews.loginTextField.delegate = self
+        authorizationViews.passwordTextField.delegate = self
+    }
+
+//    private func setupParametersTextFields(_ login: UITextField, _ password: UITextField) {
+//        if let loginText = authorizationManager.getUser()?.authorization?.login,
+//           let passwordText = authorizationManager.getUser()?.authorization?.password {
+//            login.text = loginText
+//
+//            var starsText = ""
+//            for _ in 0..<passwordText.count { starsText += "*" }
+//            password.text = starsText
+//        }
+//    }
+    
+    private func setupTextInTextFields(_ login: UITextField, _ password: UITextField) {
         if let loginText = authorizationManager.getUser()?.authorization?.login,
            let passwordText = authorizationManager.getUser()?.authorization?.password {
             login.text = loginText
@@ -83,72 +68,17 @@ class AuthorizationViewController: UIViewController {
         }
     }
     
-    func setupLoginWithAuthoButton(_ button: UIButton) {
-        self.view.addSubview(button)
+    private func setupTargets() {
+        authorizationViews.loginWithAuthoButton.addTarget(self, action: #selector(buttonLoginWithAuthoTapped(sender:)), for: .touchUpInside)
+        authorizationViews.loginWithoutAuthoButton.addTarget(self, action: #selector(buttonLoginWithoutAuthoTapped(sender:)), for: .touchUpInside)
+        authorizationViews.registrationButton.addTarget(self, action: #selector(buttonRegistrationTapped(sender:)), for: .touchUpInside)
         
-        button.tintColor = .label
-        
-        button.backgroundColor = .lightGray
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Войти", for: .normal)
-        button.layer.cornerRadius = 10
-        button.alpha = 0.5
-        
-        NSLayoutConstraint.activate([
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -310),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.widthAnchor.constraint(equalToConstant: 160),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-        
-        button.addTarget(self, action: #selector(buttonLoginWithAuthoTapped(sender:)), for: .touchUpInside)
     }
-    
-    func setupRegistrationButton(_ button: UIButton) {
-        self.view.addSubview(button)
-        
-        button.tintColor = .label
-        button.backgroundColor = .lightGray
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Зарегистрироваться", for: .normal)
-        button.layer.cornerRadius = 10
-        button.alpha = 0.5
-        
-        NSLayoutConstraint.activate([
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.widthAnchor.constraint(equalToConstant: 205),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-        
-        button.addTarget(self, action: #selector(buttonRegistrationTapped(sender:)), for: .touchUpInside)
-    }
-    
-    func setupLoginWithoutAuthoButton(_ button: UIButton) {
-        self.view.addSubview(button)
-        
-        button.tintColor = .label
-        button.backgroundColor = .lightGray
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Войти без регистрации", for: .normal)
-        button.layer.cornerRadius = 10
-        button.alpha = 0.5
-        
-        NSLayoutConstraint.activate([
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -85),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.widthAnchor.constraint(equalToConstant: 205),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-        
-        button.addTarget(self, action: #selector(buttonLoginWithoutAuthoTapped(sender:)), for: .touchUpInside)
-    }
-    
     
     @objc
     func buttonLoginWithAuthoTapped(sender: UIButton) {
-        let login = loginTextField.text?.removingFinalSpaces().removingLeadingSpaces()
-        let password = passwordTextField.text?.removingFinalSpaces().removingLeadingSpaces()
+        let login = authorizationViews.loginTextField.text?.removingFinalSpaces().removingLeadingSpaces()
+        let password = authorizationViews.passwordTextField.text?.removingFinalSpaces().removingLeadingSpaces()
         
         guard let login = login,
               let password = password else {

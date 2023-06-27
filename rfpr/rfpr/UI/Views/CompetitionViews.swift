@@ -8,14 +8,16 @@
 import UIKit
 
 class CompetitionViews {
-    let view: UIView!
-    
+    private let view: UIView!
     init(view: UIView) {
         self.view = view
+        
+        setupMainView()
+        constraintAddCompetitionButton(competitionButton)
     }
     
-    func setupAddCompetitionButton(_ button: UIButton) {
-        view.addSubview(button)
+    let competitionButton: UIButton = {
+        let button = UIButton()
         
         button.tintColor = .label
         button.backgroundColor = .lightGray
@@ -23,8 +25,14 @@ class CompetitionViews {
         button.setImage(UIImage(systemName: "plus")!, for: .normal)
         button.layer.cornerRadius = 10
         button.alpha = 0.5
-        view.bringSubviewToFront(button)
         
+        return button
+    }()
+    
+    private func constraintAddCompetitionButton(_ button: UIButton) {
+        view.addSubview(button)
+        
+        view.bringSubviewToFront(button)
         NSLayoutConstraint.activate([
             button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
             button.heightAnchor.constraint(equalToConstant: 50),
@@ -33,4 +41,8 @@ class CompetitionViews {
         ])
     }
     
+
+    private func setupMainView() {
+        self.view.backgroundColor = UIColor.white
+    }
 }

@@ -111,12 +111,7 @@ class CompetitionRepository: ICompetitionRepository, IStepToCompetitionRepositor
     }
     
     func getCompetitions() throws -> [Competition]? {
-        if !getRight(authorizationManager.getUser(), Action.read) {
-            throw DatabaseError.rightsError
-        }
-        
-        
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+
         let competitionsRealm = realm.objects(CompetitionRealm.self)
         var competitions = [Competition]()
         

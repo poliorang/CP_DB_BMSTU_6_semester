@@ -23,8 +23,6 @@ class LootRepository: ILootRepository, ILootByStepRepository {
         }
     }
     
-    let authorizationManager = AuthorizationManager.shared
-    
     func realmDeleteAll() throws {
         do {
             try realm.write {
@@ -36,9 +34,6 @@ class LootRepository: ILootRepository, ILootByStepRepository {
     }
     
     func getLoot(id: String) throws -> Loot? {
-        if !getRight(authorizationManager.getUser(), Action.read) {
-            throw DatabaseError.rightsError
-        }
         
         let id = try ObjectId.init(string: id)
     

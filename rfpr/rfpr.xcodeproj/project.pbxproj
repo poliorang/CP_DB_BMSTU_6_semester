@@ -29,6 +29,8 @@
 		4A24427F29D489890065E32B /* IParticipantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A24427E29D489890065E32B /* IParticipantService.swift */; };
 		4A24428329D48B860065E32B /* LootService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A24428229D48B860065E32B /* LootService.swift */; };
 		4A24428A29D49D8A0065E32B /* ILootRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A24428929D49D8A0065E32B /* ILootRepository.swift */; };
+		4A44E5DD2A49C805002D9708 /* AddCompetitionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44E5DC2A49C805002D9708 /* AddCompetitionViews.swift */; };
+		4A44E5DF2A4B0AF0002D9708 /* AuthorizationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44E5DE2A4B0AF0002D9708 /* AuthorizationViews.swift */; };
 		4A56F4FA2A09360500AAFC27 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F4F92A09360400AAFC27 /* StringExtension.swift */; };
 		4A6132A229E86A810025CDC9 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6132A129E86A810025CDC9 /* DataError.swift */; };
 		4A8E370029FDA229009A0930 /* MockParticipantRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8E36FA29FDA229009A0930 /* MockParticipantRepository.swift */; };
@@ -80,7 +82,7 @@
 		4AE3FB352A13C19F0049CB59 /* IUserRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE3FB332A13C18F0049CB59 /* IUserRepositoryTests.swift */; };
 		4AE53F7E2A18203000018D94 /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE53F7D2A18203000018D94 /* UsersController.swift */; };
 		4AED2B7D2A098C58000FFDFD /* DetailParticipantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED2B7C2A098C58000FFDFD /* DetailParticipantController.swift */; };
-		4AED395529F2B58200FA45F0 /* LootExtencion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED395429F2B58200FA45F0 /* LootExtencion.swift */; };
+		4AED395529F2B58200FA45F0 /* LootExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED395429F2B58200FA45F0 /* LootExtension.swift */; };
 		4AED395729F2B5B300FA45F0 /* StepExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED395629F2B5B300FA45F0 /* StepExtension.swift */; };
 		4AED395929F2B5DF00FA45F0 /* CompetitionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED395829F2B5DF00FA45F0 /* CompetitionExtension.swift */; };
 		4AED395B29F2B60000FA45F0 /* TeamExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED395A29F2B60000FA45F0 /* TeamExtension.swift */; };
@@ -167,6 +169,8 @@
 		4A24427E29D489890065E32B /* IParticipantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IParticipantService.swift; sourceTree = "<group>"; };
 		4A24428229D48B860065E32B /* LootService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LootService.swift; sourceTree = "<group>"; };
 		4A24428929D49D8A0065E32B /* ILootRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILootRepository.swift; sourceTree = "<group>"; };
+		4A44E5DC2A49C805002D9708 /* AddCompetitionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompetitionViews.swift; sourceTree = "<group>"; };
+		4A44E5DE2A4B0AF0002D9708 /* AuthorizationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViews.swift; sourceTree = "<group>"; };
 		4A56F4F92A09360400AAFC27 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		4A6132A129E86A810025CDC9 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		4A8E36FA29FDA229009A0930 /* MockParticipantRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockParticipantRepository.swift; sourceTree = "<group>"; };
@@ -218,7 +222,7 @@
 		4AE3FB332A13C18F0049CB59 /* IUserRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUserRepositoryTests.swift; sourceTree = "<group>"; };
 		4AE53F7D2A18203000018D94 /* UsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersController.swift; sourceTree = "<group>"; };
 		4AED2B7C2A098C58000FFDFD /* DetailParticipantController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailParticipantController.swift; sourceTree = "<group>"; };
-		4AED395429F2B58200FA45F0 /* LootExtencion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LootExtencion.swift; sourceTree = "<group>"; };
+		4AED395429F2B58200FA45F0 /* LootExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LootExtension.swift; sourceTree = "<group>"; };
 		4AED395629F2B5B300FA45F0 /* StepExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepExtension.swift; sourceTree = "<group>"; };
 		4AED395829F2B5DF00FA45F0 /* CompetitionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionExtension.swift; sourceTree = "<group>"; };
 		4AED395A29F2B60000FA45F0 /* TeamExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamExtension.swift; sourceTree = "<group>"; };
@@ -318,7 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				4A8E37052A001A6A009A0930 /* UI */,
-				4A6132A029E86A630025CDC9 /* Error */,
+				4A6132A029E86A630025CDC9 /* Errors */,
 				4A24428029D48AD00065E32B /* Repository */,
 				4A24423E29D2F2690065E32B /* Service */,
 				4A24423B29D2F07E0065E32B /* Model */,
@@ -422,14 +426,14 @@
 			path = RepositoryInterface;
 			sourceTree = "<group>";
 		};
-		4A6132A029E86A630025CDC9 /* Error */ = {
+		4A6132A029E86A630025CDC9 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
 				4A6132A129E86A810025CDC9 /* DataError.swift */,
 				4AEFA0D829E96D0E00883AAC /* ParameterError.swift */,
 				4A9809CC29E9992700B6886E /* ConnectionError.swift */,
 			);
-			path = Error;
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		4A8E36F829FDA229009A0930 /* MockRepository */ = {
@@ -449,11 +453,11 @@
 		4A8E37052A001A6A009A0930 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				4AF5A19C2A02C7D0005DD13D /* Model */,
+				4AF5A19C2A02C7D0005DD13D /* Managers */,
 				4AF5A1992A02BE88005DD13D /* Views */,
 				4AF5A1982A02BE7C005DD13D /* Controllers */,
 				4AEE59FE2A004E0B00534AC8 /* Delegates */,
-				4AEE59F92A00377100534AC8 /* Extension */,
+				4AEE59F92A00377100534AC8 /* Extensions */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -540,7 +544,7 @@
 		4AED395329F2B55B00FA45F0 /* ModelExtension */ = {
 			isa = PBXGroup;
 			children = (
-				4AED395429F2B58200FA45F0 /* LootExtencion.swift */,
+				4AED395429F2B58200FA45F0 /* LootExtension.swift */,
 				4AED395629F2B5B300FA45F0 /* StepExtension.swift */,
 				4AED395829F2B5DF00FA45F0 /* CompetitionExtension.swift */,
 				4AED395A29F2B60000FA45F0 /* TeamExtension.swift */,
@@ -583,13 +587,13 @@
 			path = DataModel;
 			sourceTree = "<group>";
 		};
-		4AEE59F92A00377100534AC8 /* Extension */ = {
+		4AEE59F92A00377100534AC8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				4AEE59FA2A00379400534AC8 /* CompetitionsControllerExtension.swift */,
 				4A56F4F92A09360400AAFC27 /* StringExtension.swift */,
 			);
-			path = Extension;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		4AEE59FE2A004E0B00534AC8 /* Delegates */ = {
@@ -624,12 +628,14 @@
 		4AF5A1992A02BE88005DD13D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4A44E5DC2A49C805002D9708 /* AddCompetitionViews.swift */,
 				4A1F1E942A011B77002DFE7B /* CompetitionViews.swift */,
+				4A44E5DE2A4B0AF0002D9708 /* AuthorizationViews.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		4AF5A19C2A02C7D0005DD13D /* Model */ = {
+		4AF5A19C2A02C7D0005DD13D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				4AEE59F72A0030E500534AC8 /* AlertManager.swift */,
@@ -637,7 +643,7 @@
 				4AF2DCC52A121314001B1BF1 /* AuthorizationManager.swift */,
 				4AF5A19F2A02C846005DD13D /* config.swift */,
 			);
-			path = Model;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		4AF8A9562A13C850004228DA /* UserTest */ = {
@@ -811,7 +817,7 @@
 				4AE3F0622A13BA55009F23FF /* MockAuthorizationRepository.swift in Sources */,
 				4A8E370029FDA229009A0930 /* MockParticipantRepository.swift in Sources */,
 				4AE317232A0B7C1E00387419 /* LootController.swift in Sources */,
-				4AED395529F2B58200FA45F0 /* LootExtencion.swift in Sources */,
+				4AED395529F2B58200FA45F0 /* LootExtension.swift in Sources */,
 				4A24427029D47BD40065E32B /* CompetitionModel.swift in Sources */,
 				4AE1777D29D9C5BB009FF250 /* IParticipantByTeamRepository.swift in Sources */,
 				4AEFA0D929E96D0E00883AAC /* ParameterError.swift in Sources */,
@@ -831,6 +837,7 @@
 				4AE317292A0BB99400387419 /* ILootByStepRepository.swift in Sources */,
 				4AF2DCD82A1242EF001B1BF1 /* RegistrationController.swift in Sources */,
 				4AE1778329D9CC08009FF250 /* TeamService.swift in Sources */,
+				4A44E5DD2A49C805002D9708 /* AddCompetitionViews.swift in Sources */,
 				4AED903029E1B462009F6805 /* ParticipantModelData.swift in Sources */,
 				4AD3E60F2A07B1C80005AC18 /* DetailTeamController.swift in Sources */,
 				4AF2DCCC2A122D7B001B1BF1 /* IAuthorizationService.swift in Sources */,
@@ -869,6 +876,7 @@
 				4AED395929F2B5DF00FA45F0 /* CompetitionExtension.swift in Sources */,
 				4AEE59FD2A003B7500534AC8 /* TabBarController.swift in Sources */,
 				4AE3FB322A13C04B0049CB59 /* MockUserRepository.swift in Sources */,
+				4A44E5DF2A4B0AF0002D9708 /* AuthorizationViews.swift in Sources */,
 				4A9809D129E9EFA600B6886E /* StepRepository.swift in Sources */,
 				4AED395B29F2B60000FA45F0 /* TeamExtension.swift in Sources */,
 				4AE1776029D71BA9009FF250 /* IStepRepository.swift in Sources */,

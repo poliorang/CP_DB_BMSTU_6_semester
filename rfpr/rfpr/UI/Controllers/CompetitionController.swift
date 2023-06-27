@@ -1,4 +1,3 @@
-//
 //  ViewController.swift
 //  rfpr
 //
@@ -13,55 +12,41 @@ protocol CompetitionToTeamDelegateProtocol {
 }
 
 class CompetitionViewController: UIViewController {
-    typealias CompetitionTableViewCell = UITableViewCell
-    
-    var competitionDelegate: CompetitionToTeamDelegateProtocol? = nil
-    
     var services: ServicesManager! = nil
     let alertManager = AlertManager.shared
     let authorizationManager = AuthorizationManager.shared
     
-    var setupViews: CompetitionViews! = nil
+    typealias CompetitionTableViewCell = UITableViewCell
+    var competitionDelegate: CompetitionToTeamDelegateProtocol? = nil
+    
+    private var competitionViews: CompetitionViews! = nil
+    private let authorizationViewController = AuthorizationViewController()
+
     var competitions = [Competition]()
     
     let tableView = UITableView.init(frame: .zero, style: UITableView.Style.grouped)
-    let addCompetitionButton = UIButton()
-    var accountButton: UIBarButtonItem? = nil
-    var adminButton: UIBarButtonItem? = nil
-
-    let authorizationViewController = AuthorizationViewController()
+    private var accountBarButton: UIBarButtonItem? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        self.navigationItem.title = "Соревнования"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        
+
         setupServices()
         getCompetitions()
         
-        setupViews = CompetitionViews(view: self.view)
-
+        setupNavigation()
         setupTable()
-        setupViews.setupAddCompetitionButton(addCompetitionButton)
         setupBarButtons()
         
-        addCompetitionButton.addTarget(self, action: #selector(buttonAddCompetitionTapped(sender:)), for: .touchUpInside)
-        
+        competitionViews = CompetitionViews(view: self.view)
+        setupTargets()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
         present(authorizationViewController, animated: true, completion: nil)
     }
-    
-    private func setupTable() {
-        view.addSubview(tableView)
-        
-        tableView.register(CompetitionTableViewCell.self, forCellReuseIdentifier: "CompetitionTableViewCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        self.tableView.frame = CGRect.init(origin: .zero, size: self.view.frame.size)
-    }
-    
-    func setupServices() {
+
+    private func setupServices() {
         do {
             try services = ServicesManager()
         } catch {
@@ -78,19 +63,38 @@ class CompetitionViewController: UIViewController {
                                    message: "В базе данных нет ни одного соревнования")
         }
     }
-
-    private func setupBarButtons() {
-        self.accountButton = UIBarButtonItem(title: "Аккаунт", style: UIBarButtonItem.Style.done,
-                                                    target: self, action: #selector(buttonAccountTapped(_:)))
-        self.navigationItem.rightBarButtonItem = accountButton
+    
+    private func setupNavigation() {
+        self.navigationItem.title = "Соревнования"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    private func setupTable() {
+        view.addSubview(tableView)
         
-        self.accountButton = UIBarButtonItem(title: "  🛠️", style: UIBarButtonItem.Style.done,
+        tableView.register(CompetitionTableViewCell.self, forCellReuseIdentifier: "CompetitionTableViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.frame = CGRect.init(origin: .zero, size: self.view.frame.size)
+    }
+    
+    private func setupBarButtons() {
+        self.accountBarButton = UIBarButtonItem(title: "Аккаунт", style: UIBarButtonItem.Style.done,
+                                                    target: self, action: #selector(buttonAccountTapped(_:)))
+        self.navigationItem.rightBarButtonItem = self.accountBarButton
+        
+        self.accountBarButton = UIBarButtonItem(title: "  🛠️", style: UIBarButtonItem.Style.done,
                                                     target: self, action: #selector(buttonSetupsTapped(_:)))
-        self.navigationItem.leftBarButtonItem = accountButton
+        self.navigationItem.leftBarButtonItem = self.accountBarButton
+    }
+
+    private func setupTargets() {
+        competitionViews.competitionButton.addTarget(self, action: #selector(buttonAddCompetitionTapped(sender:)), for: .touchUpInside)
     }
     
     @objc
-    func buttonSetupsTapped(_ sender: UIBarButtonItem) {
+    private func buttonSetupsTapped(_ sender: UIBarButtonItem) {
         if !authorizationManager.getRight(true) {
             alertManager.showAlert(presentTo: self, title: "Доступ запрещен",
                                    message: "Доступ разрешен только для администратора")
@@ -102,19 +106,19 @@ class CompetitionViewController: UIViewController {
     }
     
     @objc
-    func buttonAccountTapped(_ sender: UIBarButtonItem) {
+    private func buttonAccountTapped(_ sender: UIBarButtonItem) {
         present(authorizationViewController, animated: true, completion: nil)
     }
     
     @objc
-    func buttonAddCompetitionTapped(sender: UIButton) {
+    private func buttonAddCompetitionTapped(sender: UIButton) {
         if !authorizationManager.getRight() {
             alertManager.showAlert(presentTo: self, title: "Доступ запрещен",
                                    message: "Неавторизованные пользователи не могут создавать соревнования")
             return
         }
         
-        let updateTableCompletion:() -> Void = { 
+        let updateTableCompletion:() -> Void = {
             self.getCompetitions()
             self.tableView.reloadData()
         }
@@ -123,7 +127,4 @@ class CompetitionViewController: UIViewController {
         addCompetitionController.gettedCompletion = updateTableCompletion
         present(addCompetitionController, animated: true, completion: nil)
     }
-
 }
-
-
