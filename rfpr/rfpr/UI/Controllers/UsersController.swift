@@ -103,7 +103,7 @@ extension UsersViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             
-            // если админ пытается удалить свой акк, то ему выдаются права неавтриз пользователя после удаления
+            // если админ пытается удалить свой акк, то ему выдаются права неавториз пользователя после удаления
             if user == authorizationManager.getUser() {
                 let newUser = try? services.userService.createUser(id: nil, role: .participant, authorization: nil)
                 if let newUser = newUser {
@@ -169,7 +169,4 @@ extension UsersViewController: UITableViewDataSource, UITableViewDelegate {
         toUserDelegateProtocol?.sendUserToRegistrationViewController(user: user)
         present(registrationViewController, animated: true, completion: nil)
     }
-    
 }
-
-

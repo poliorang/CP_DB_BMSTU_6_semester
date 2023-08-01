@@ -42,17 +42,6 @@ class AuthorizationViewController: UIViewController {
         authorizationViews.loginTextField.delegate = self
         authorizationViews.passwordTextField.delegate = self
     }
-
-//    private func setupParametersTextFields(_ login: UITextField, _ password: UITextField) {
-//        if let loginText = authorizationManager.getUser()?.authorization?.login,
-//           let passwordText = authorizationManager.getUser()?.authorization?.password {
-//            login.text = loginText
-//
-//            var starsText = ""
-//            for _ in 0..<passwordText.count { starsText += "*" }
-//            password.text = starsText
-//        }
-//    }
     
     private func setupTextInTextFields(_ login: UITextField, _ password: UITextField) {
         if let loginText = authorizationManager.getUser()?.authorization?.login,
@@ -72,11 +61,10 @@ class AuthorizationViewController: UIViewController {
         authorizationViews.loginWithAuthoButton.addTarget(self, action: #selector(buttonLoginWithAuthoTapped(sender:)), for: .touchUpInside)
         authorizationViews.loginWithoutAuthoButton.addTarget(self, action: #selector(buttonLoginWithoutAuthoTapped(sender:)), for: .touchUpInside)
         authorizationViews.registrationButton.addTarget(self, action: #selector(buttonRegistrationTapped(sender:)), for: .touchUpInside)
-        
     }
     
     @objc
-    func buttonLoginWithAuthoTapped(sender: UIButton) {
+    private func buttonLoginWithAuthoTapped(sender: UIButton) {
         let login = authorizationViews.loginTextField.text?.removingFinalSpaces().removingLeadingSpaces()
         let password = authorizationViews.passwordTextField.text?.removingFinalSpaces().removingLeadingSpaces()
         
@@ -114,7 +102,7 @@ class AuthorizationViewController: UIViewController {
     }
     
     @objc
-    func buttonLoginWithoutAuthoTapped(sender: UIButton) {
+    private func buttonLoginWithoutAuthoTapped(sender: UIButton) {
         let user: User?
         do {
             user = try services.userService.createUser(id: nil, role: .participant, authorization: nil)
@@ -135,10 +123,11 @@ class AuthorizationViewController: UIViewController {
     }
     
     @objc
-    func buttonRegistrationTapped(sender: UIButton) {
+    private func buttonRegistrationTapped(sender: UIButton) {
         let dismissCompletion: () -> Void = {
             self.dismiss(animated: true)
         }
+        
         let registrationViewController = RegistrationViewController()
         registrationViewController.gettedCompletion = dismissCompletion
         

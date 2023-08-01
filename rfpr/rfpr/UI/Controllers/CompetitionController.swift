@@ -39,13 +39,10 @@ class CompetitionViewController: UIViewController {
         
         competitionViews = CompetitionViews(view: self.view)
         setupTargets()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
+        
         present(authorizationViewController, animated: true, completion: nil)
     }
-
+    
     private func setupServices() {
         do {
             try services = ServicesManager()

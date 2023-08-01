@@ -27,9 +27,9 @@ class DetailTeamViewController: UIViewController, ToDetailTeamDelegateProtocol,
     
     var selectedTextField: UITextField? = nil
     var participants = [Participant]()
-    var competition: Competition?       // получается из TeamController
+    var competition: Competition?       // получить из TeamController
     var updateTeam: Team? // получить из TeamController
-    var firstlyParticipants: [Participant]? // участники переж редактированием
+    var firstlyParticipants: [Participant]? // участники перед редактированием
     
     var gettedCompletion: (() -> Void)? // обновление таблицы в TeamController
     

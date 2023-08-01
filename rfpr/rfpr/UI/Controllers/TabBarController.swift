@@ -23,10 +23,10 @@ class TabBarViewController: UITabBarController {
     func setupViewControllers() {
             viewControllers = [createNavigationsController(for: CompetitionViewController(),
                                                               title: NSLocalizedString("Соревнования", comment: ""),
-                                                              image: UIImage(systemName: "person")!),
+                                                              image: UIImage(systemName: "person.3")!),
                                createNavigationsController(for: LootViewController(),
                                                               title: NSLocalizedString("Улов", comment: ""),
-                                                              image: UIImage(systemName: "plus")!)]
+                                                              image: UIImage(systemName: "fish")!)]
         
     }
     

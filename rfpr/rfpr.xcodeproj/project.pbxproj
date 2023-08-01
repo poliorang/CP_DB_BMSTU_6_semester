@@ -31,6 +31,7 @@
 		4A24428A29D49D8A0065E32B /* ILootRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A24428929D49D8A0065E32B /* ILootRepository.swift */; };
 		4A44E5DD2A49C805002D9708 /* AddCompetitionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44E5DC2A49C805002D9708 /* AddCompetitionViews.swift */; };
 		4A44E5DF2A4B0AF0002D9708 /* AuthorizationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44E5DE2A4B0AF0002D9708 /* AuthorizationViews.swift */; };
+		4A44E5E12A791147002D9708 /* RegistrationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44E5E02A791147002D9708 /* RegistrationViews.swift */; };
 		4A56F4FA2A09360500AAFC27 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F4F92A09360400AAFC27 /* StringExtension.swift */; };
 		4A6132A229E86A810025CDC9 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6132A129E86A810025CDC9 /* DataError.swift */; };
 		4A8E370029FDA229009A0930 /* MockParticipantRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8E36FA29FDA229009A0930 /* MockParticipantRepository.swift */; };
@@ -123,7 +124,7 @@
 		4AF3405429DB8FFA00463098 /* IParticipantRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3405329DB8FFA00463098 /* IParticipantRepositoryTests.swift */; };
 		4AF5A19B2A02C589005DD13D /* AddCompetitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5A19A2A02C588005DD13D /* AddCompetitionController.swift */; };
 		4AF5A19E2A02C817005DD13D /* ServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5A19D2A02C817005DD13D /* ServicesManager.swift */; };
-		4AF5A1A02A02C846005DD13D /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5A19F2A02C846005DD13D /* config.swift */; };
+		4AF5A1A02A02C846005DD13D /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5A19F2A02C846005DD13D /* ConfigManager.swift */; };
 		4AF5A1A22A05A72D005DD13D /* TeamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5A1A12A05A72D005DD13D /* TeamController.swift */; };
 		4AF8A9552A13C786004228DA /* UserServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8A9532A13C776004228DA /* UserServiceTests.swift */; };
 		4AF8A9582A13C87C004228DA /* BeforeUserRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8A9572A13C87C004228DA /* BeforeUserRepositoryTests.swift */; };
@@ -171,6 +172,7 @@
 		4A24428929D49D8A0065E32B /* ILootRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILootRepository.swift; sourceTree = "<group>"; };
 		4A44E5DC2A49C805002D9708 /* AddCompetitionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompetitionViews.swift; sourceTree = "<group>"; };
 		4A44E5DE2A4B0AF0002D9708 /* AuthorizationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViews.swift; sourceTree = "<group>"; };
+		4A44E5E02A791147002D9708 /* RegistrationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViews.swift; sourceTree = "<group>"; };
 		4A56F4F92A09360400AAFC27 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		4A6132A129E86A810025CDC9 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		4A8E36FA29FDA229009A0930 /* MockParticipantRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockParticipantRepository.swift; sourceTree = "<group>"; };
@@ -263,7 +265,7 @@
 		4AF3405329DB8FFA00463098 /* IParticipantRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IParticipantRepositoryTests.swift; sourceTree = "<group>"; };
 		4AF5A19A2A02C588005DD13D /* AddCompetitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompetitionController.swift; sourceTree = "<group>"; };
 		4AF5A19D2A02C817005DD13D /* ServicesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesManager.swift; sourceTree = "<group>"; };
-		4AF5A19F2A02C846005DD13D /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
+		4AF5A19F2A02C846005DD13D /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		4AF5A1A12A05A72D005DD13D /* TeamController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamController.swift; sourceTree = "<group>"; };
 		4AF8A9532A13C776004228DA /* UserServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceTests.swift; sourceTree = "<group>"; };
 		4AF8A9572A13C87C004228DA /* BeforeUserRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeUserRepositoryTests.swift; sourceTree = "<group>"; };
@@ -617,10 +619,10 @@
 				4AF5A1A12A05A72D005DD13D /* TeamController.swift */,
 				4AF5A19A2A02C588005DD13D /* AddCompetitionController.swift */,
 				4A24422B29D2EF480065E32B /* CompetitionController.swift */,
-				4AEE59FC2A003B7500534AC8 /* TabBarController.swift */,
 				4AF2DCD72A1242EF001B1BF1 /* RegistrationController.swift */,
 				4AF2DCC32A120851001B1BF1 /* AuthorizationController.swift */,
 				4AE53F7D2A18203000018D94 /* UsersController.swift */,
+				4AEE59FC2A003B7500534AC8 /* TabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -630,6 +632,7 @@
 			children = (
 				4A44E5DC2A49C805002D9708 /* AddCompetitionViews.swift */,
 				4A1F1E942A011B77002DFE7B /* CompetitionViews.swift */,
+				4A44E5E02A791147002D9708 /* RegistrationViews.swift */,
 				4A44E5DE2A4B0AF0002D9708 /* AuthorizationViews.swift */,
 			);
 			path = Views;
@@ -641,7 +644,7 @@
 				4AEE59F72A0030E500534AC8 /* AlertManager.swift */,
 				4AF5A19D2A02C817005DD13D /* ServicesManager.swift */,
 				4AF2DCC52A121314001B1BF1 /* AuthorizationManager.swift */,
-				4AF5A19F2A02C846005DD13D /* config.swift */,
+				4AF5A19F2A02C846005DD13D /* ConfigManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 				4A24422C29D2EF480065E32B /* CompetitionController.swift in Sources */,
 				4ADB9F5429F43CBA009A3C24 /* BeforeTeamRepository.swift in Sources */,
 				4A9809CD29E9992700B6886E /* ConnectionError.swift in Sources */,
+				4A44E5E12A791147002D9708 /* RegistrationViews.swift in Sources */,
 				4A8E370429FDA229009A0930 /* MockStepRepository.swift in Sources */,
 				4AE1776C29D8E183009FF250 /* ICompetitionRepository.swift in Sources */,
 				4AED395929F2B5DF00FA45F0 /* CompetitionExtension.swift in Sources */,
@@ -884,7 +888,7 @@
 				4AED396529F318FD00FA45F0 /* BeforeStepRepository.swift in Sources */,
 				4AE1778529D9CC25009FF250 /* ParticipantService.swift in Sources */,
 				4AED902A29E1B1AD009F6805 /* StepModelData.swift in Sources */,
-				4AF5A1A02A02C846005DD13D /* config.swift in Sources */,
+				4AF5A1A02A02C846005DD13D /* ConfigManager.swift in Sources */,
 				4AE1775E29D71B79009FF250 /* StepService.swift in Sources */,
 				4AE1776829D8DD92009FF250 /* IStepToCompetitionRepository.swift in Sources */,
 				4A24427B29D486120065E32B /* ITeamService.swift in Sources */,

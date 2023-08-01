@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 extension CompetitionViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
@@ -99,7 +98,4 @@ extension CompetitionViewController: UITableViewDataSource, UITableViewDelegate 
         
         navigationController?.pushViewController(teamViewController, animated: true)
     }
-    
 }
-
-
